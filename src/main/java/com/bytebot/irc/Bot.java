@@ -33,7 +33,7 @@ public class Bot {
 		public void run() {
 			listener.init();
 			channelList = dataManager.getData(ChannelList.class);
-			Configuration<PircBotX> configuration = new Configuration.Builder().setName("ByteBot").setServerHostname("irc.esper.net").addListener(listener).buildConfiguration();
+			Configuration<PircBotX> configuration = new Configuration.Builder().setName("ByteBot").setServerHostname("irc.esper.net").addListener(listener).setMessageDelay(300L).buildConfiguration();
 			bot = new PircBotX(configuration);
 			try {
 				bot.startBot();
