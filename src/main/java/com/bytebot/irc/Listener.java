@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.bytebot.commands.CommandBasicReply;
-import com.bytebot.commands.CommandHello;
-import com.bytebot.commands.CommandHelp;
-import com.bytebot.commands.CommandJoin;
-import com.bytebot.commands.CommandLeave;
-import com.bytebot.commands.CommandStop;
-import com.bytebot.commands.ICommand;
+import com.bytebot.irc.commands.CommandBasicReply;
+import com.bytebot.irc.commands.CommandHello;
+import com.bytebot.irc.commands.CommandHelp;
+import com.bytebot.irc.commands.CommandJoin;
+import com.bytebot.irc.commands.CommandLeave;
+import com.bytebot.irc.commands.CommandStop;
+import com.bytebot.irc.commands.ICommand;
 import com.google.common.base.Strings;
 
 import org.pircbotx.hooks.ListenerAdapter;

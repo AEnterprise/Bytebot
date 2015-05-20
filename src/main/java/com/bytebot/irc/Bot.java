@@ -1,7 +1,7 @@
 package com.bytebot.irc;
 
-import com.bytebot.data.DataManager;
-import com.bytebot.utils.ChannelList;
+import com.bytebot.irc.data.DataManager;
+import com.bytebot.irc.utils.ChannelList;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;

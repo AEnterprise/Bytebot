@@ -3,7 +3,7 @@ package com.bytebot.irc.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bytebot.Bot;
+import com.bytebot.irc.Bot;
 import com.bytebot.irc.data.IDataHolder;
 import com.google.common.collect.ImmutableList;
 

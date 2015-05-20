@@ -18,6 +18,7 @@ public class BlockBotLink extends BlockContainer {
 
 	public BlockBotLink() {
 		super(Material.iron);
+		setBlockName("blockBotlink");
 	}
 
 	@Override

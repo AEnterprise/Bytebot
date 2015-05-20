@@ -1,6 +1,7 @@
 package com.bytebot.irc.commands;
 
-import com.bytebot.Listener;
+
+import com.bytebot.irc.Listener;
 
 import org.pircbotx.Channel;
 import org.pircbotx.User;

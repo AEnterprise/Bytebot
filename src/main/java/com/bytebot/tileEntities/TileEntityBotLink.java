@@ -32,8 +32,9 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 
 	@Override
 	public EnumSet<GridFlags> getFlags() {
-		EnumSet<GridFlags> flags = new
-		return
+		EnumSet<GridFlags> flags = EnumSet.noneOf(GridFlags.class);
+		flags.add(GridFlags.REQUIRE_CHANNEL);
+		return flags;
 	}
 
 	@Override

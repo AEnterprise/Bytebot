@@ -1,7 +1,8 @@
 package com.bytebot.irc.commands;
 
-import com.bytebot.Bot;
-import com.bytebot.utils.Utils;
+
+import com.bytebot.irc.Bot;
+import com.bytebot.irc.utils.Utils;
 
 import org.pircbotx.Channel;
 import org.pircbotx.User;
