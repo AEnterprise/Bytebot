@@ -1,0 +1,19 @@
+# Folders
+.idea/
+.gradle
+out/
+libs/
+
+# Files
+*.eml
+*.iml
+*.bat
+*.blend
+*.class
+*.classpath
+*.project
+*.ipr
+*.iws
+*.mtl
+*.xcf
+*.bat
