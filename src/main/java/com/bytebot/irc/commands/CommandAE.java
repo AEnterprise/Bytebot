@@ -1,6 +1,6 @@
 package com.bytebot.irc.commands;
 
-import com.bytebot.tileEntities.TileEntityBotLink;
+import com.bytebot.utils.AELinks;
 
 import org.pircbotx.Channel;
 import org.pircbotx.User;
@@ -25,7 +25,7 @@ public class CommandAE implements ICommand {
 	@Override
 	public void handle(MessageEvent event, String[] args) {
 		if (args[0].equals("list")) {
-			for (ItemStack stack : TileEntityBotLink.stacks) {
+			for (ItemStack stack : AELinks.getList(Integer.valueOf(args[1]))) {
 				event.getChannel().send().message(stack.stackSize + "x " + StatCollector.translateToLocal(stack.getUnlocalizedName() + ".name"));
 			}
 		}
@@ -43,6 +43,6 @@ public class CommandAE implements ICommand {
 
 	@Override
 	public int getNumArgs() {
-		return 1;
+		return 2;
 	}
 }

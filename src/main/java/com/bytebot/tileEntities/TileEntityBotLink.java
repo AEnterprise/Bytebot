@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import com.bytebot.ByteBot;
+import com.bytebot.utils.AELinks;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,7 +34,7 @@ import appeng.tile.storage.TileDrive;
  * http://buildcraftadditions.wordpress.com/wiki/licensing-stuff/
  */
 public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHost {
-	public static List<ItemStack> stacks;
+	public int ID = -2;
 	private IGridNode node;
 
 	public void blockBreak() {
@@ -46,11 +47,14 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 		return;
 	}
 
-	public void printNetwork() {
+	public void updateList() {
+		if (ID == -2) {
+			ID = AELinks.getID();
+			AELinks.link(ID, this);
+		}
 		if (node != null) {
 			node.updateState();
 			List<ItemStack> list = new ArrayList<ItemStack>();
-			System.out.println("-------------------------------------------");
 			for (IGridNode grindNode : node.getGrid().getNodes()) {
 				IGridHost host = grindNode.getGridBlock().getMachine();
 				if (host instanceof TileDrive) {
@@ -60,8 +64,7 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 					}
 				}
 			}
-			stacks = list;
-			System.out.println("-------------------------------------------");
+			AELinks.setList(ID, list);
 		}
 	}
 
@@ -163,6 +166,8 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 			node.loadFromNBT("node", tag);
 			node.updateState();
 		}
+		ID = tag.getInteger("ID");
+		AELinks.link(ID, this);
 	}
 
 	@Override
@@ -170,5 +175,6 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 		super.writeToNBT(tag);
 		if (node != null)
 			node.saveToNBT("node", tag);
+		tag.setInteger("ID", ID);
 	}
 }

@@ -39,6 +39,7 @@ public class Bot {
 				bot.startBot();
 			} catch (Exception e) {
 				e.printStackTrace();
+
 			}
 		}
 	}

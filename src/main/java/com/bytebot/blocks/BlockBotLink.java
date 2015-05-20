@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 /**
@@ -47,7 +48,7 @@ public class BlockBotLink extends BlockContainer {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ) {
 		TileEntity entity = world.getTileEntity(x, y, z);
 		if (entity instanceof TileEntityBotLink) {
-			((TileEntityBotLink) entity).printNetwork();
+			player.addChatComponentMessage(new ChatComponentText(((TileEntityBotLink) entity).ID + ""));
 		}
 		return true;
 	}
