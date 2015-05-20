@@ -22,7 +22,16 @@ public class BlockBotLink extends BlockContainer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityBotLink();
+	}
+
+	@Override
+	public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
+		super.onBlockPreDestroy(world, x, y, z, meta);
+		TileEntity entity = world.getTileEntity(x, y, z);
+		if (entity instanceof TileEntityBotLink) {
+			((TileEntityBotLink) entity).blockBreak();
+		}
 	}
 }

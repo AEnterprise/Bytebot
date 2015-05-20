@@ -1,6 +1,7 @@
 package com.bytebot;
 
 import com.bytebot.blocks.BlockBotLink;
+import com.bytebot.tileEntities.TileEntityBotLink;
 
 import net.minecraft.block.Block;
 
@@ -20,6 +21,7 @@ public class ByteBot {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		GameRegistry.registerBlock(blockBotlink, "blockBotlink");
+		GameRegistry.registerTileEntity(TileEntityBotLink.class, "botlink");
 
 	}
     

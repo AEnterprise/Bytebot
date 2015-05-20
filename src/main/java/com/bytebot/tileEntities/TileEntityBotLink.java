@@ -2,11 +2,15 @@ package com.bytebot.tileEntities;
 
 import java.util.EnumSet;
 
+import com.bytebot.ByteBot;
+
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
+import appeng.api.AEApi;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.GridNotification;
 import appeng.api.networking.IGrid;
@@ -25,9 +29,16 @@ import appeng.api.util.DimensionalCoord;
  * http://buildcraftadditions.wordpress.com/wiki/licensing-stuff/
  */
 public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHost {
+	private IGridNode node;
+
+	public void blockBreak() {
+		if (node != null)
+			node.destroy();
+	}
+
 	@Override
 	public double getIdlePowerUsage() {
-		return 0;
+		return 2;
 	}
 
 	@Override
@@ -39,17 +50,17 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 
 	@Override
 	public boolean isWorldAccessible() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public DimensionalCoord getLocation() {
-		return null;
+		return new DimensionalCoord(this);
 	}
 
 	@Override
 	public AEColor getGridColor() {
-		return null;
+		return AEColor.Transparent;
 	}
 
 	@Override
@@ -64,12 +75,12 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 
 	@Override
 	public EnumSet<ForgeDirection> getConnectableSides() {
-		return null;
+		return EnumSet.allOf(ForgeDirection.class);
 	}
 
 	@Override
 	public IGridHost getMachine() {
-		return null;
+		return this;
 	}
 
 	@Override
@@ -79,21 +90,41 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 
 	@Override
 	public ItemStack getMachineRepresentation() {
-		return null;
+		return new ItemStack(ByteBot.blockBotlink);
 	}
 
 	@Override
 	public IGridNode getGridNode(ForgeDirection forgeDirection) {
-		return null;
+		if (node == null) {
+			node = AEApi.instance().createGridNode(this);
+		}
+		return node;
 	}
 
 	@Override
 	public AECableType getCableConnectionType(ForgeDirection forgeDirection) {
-		return null;
+		return AECableType.COVERED;
 	}
 
 	@Override
 	public void securityBreak() {
 
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		super.readFromNBT(tag);
+		if (node != null) {
+			node = AEApi.instance().createGridNode(this);
+			node.loadFromNBT("node", tag);
+			node.updateState();
+		}
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound tag) {
+		super.writeToNBT(tag);
+		if (node != null)
+			node.saveToNBT("node", tag);
 	}
 }
