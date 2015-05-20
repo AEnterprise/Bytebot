@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.bytebot.irc.commands.CommandAE;
 import com.bytebot.irc.commands.CommandBasicReply;
 import com.bytebot.irc.commands.CommandHello;
 import com.bytebot.irc.commands.CommandHelp;
@@ -21,7 +22,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  * Created by AEnterprise
  */
 public class Listener extends ListenerAdapter {
-	public static List<ICommand> commands = new ArrayList<>();
+	public static List<ICommand> commands = new ArrayList<ICommand>();
 
 	public void init() {
 		//add commands
@@ -31,6 +32,7 @@ public class Listener extends ListenerAdapter {
 		commands.add(new CommandBasicReply("reply", "replying"));
 		commands.add(new CommandJoin());
 		commands.add(new CommandLeave());
+		commands.add(new CommandAE());
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.bytebot.tileEntities;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import com.bytebot.ByteBot;
 
@@ -20,6 +22,8 @@ import appeng.api.networking.IGridNode;
 import appeng.api.util.AECableType;
 import appeng.api.util.AEColor;
 import appeng.api.util.DimensionalCoord;
+import appeng.tile.inventory.AppEngInternalInventory;
+import appeng.tile.storage.TileDrive;
 
 /**
  * Copyright (c) 2014-2015, AEnterprise
@@ -29,11 +33,50 @@ import appeng.api.util.DimensionalCoord;
  * http://buildcraftadditions.wordpress.com/wiki/licensing-stuff/
  */
 public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHost {
+	public static List<ItemStack> stacks;
 	private IGridNode node;
 
 	public void blockBreak() {
 		if (node != null)
 			node.destroy();
+	}
+
+	@Override
+	public void updateEntity() {
+		return;
+	}
+
+	public void printNetwork() {
+		if (node != null) {
+			node.updateState();
+			List<ItemStack> list = new ArrayList<ItemStack>();
+			System.out.println("-------------------------------------------");
+			for (IGridNode grindNode : node.getGrid().getNodes()) {
+				IGridHost host = grindNode.getGridBlock().getMachine();
+				if (host instanceof TileDrive) {
+					TileDrive drive = (TileDrive) host;
+					for (ItemStack stack : ((AppEngInternalInventory) drive.getInternalInventory())) {
+						list.addAll(getStoredStacks(stack));
+					}
+				}
+			}
+			stacks = list;
+			System.out.println("-------------------------------------------");
+		}
+	}
+
+	private List<ItemStack> getStoredStacks(ItemStack stack) {
+		List<ItemStack> list = new ArrayList<ItemStack>();
+		if (stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ic")) {
+			for (int t = 0; t < stack.stackTagCompound.getInteger("ic"); t++) {
+				ItemStack loaded = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("#" + t));
+				if (loaded != null) {
+					loaded.stackSize = stack.stackTagCompound.getCompoundTag("#" + t).getInteger("Cnt");
+					list.add(loaded);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -97,6 +140,7 @@ public class TileEntityBotLink extends TileEntity implements IGridBlock, IGridHo
 	public IGridNode getGridNode(ForgeDirection forgeDirection) {
 		if (node == null) {
 			node = AEApi.instance().createGridNode(this);
+			node.updateState();
 		}
 		return node;
 	}

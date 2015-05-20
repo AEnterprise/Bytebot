@@ -1,6 +1,7 @@
 package com.bytebot;
 
 import com.bytebot.blocks.BlockBotLink;
+import com.bytebot.irc.Bot;
 import com.bytebot.tileEntities.TileEntityBotLink;
 
 import net.minecraft.block.Block;
@@ -16,6 +17,7 @@ public class ByteBot {
 	@Mod.Instance("bytebot")
 	public static ByteBot INSTANCE;
 
+
 	public static Block blockBotlink = new BlockBotLink();
 
 	@Mod.EventHandler
@@ -26,8 +28,7 @@ public class ByteBot {
 	}
     
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-
-    }
+	public void init(FMLInitializationEvent event) {
+		Bot.start();
+	}
 }

@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
  */
 public class DataManager {
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private Map<String, IDataHolder>  dataHolders = new HashMap<>();
+	private Map<String, IDataHolder> dataHolders = new HashMap<String, IDataHolder>();
 
 	public <T extends IDataHolder> T getData(Class <T> clas) {
 		try {

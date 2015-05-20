@@ -4,6 +4,9 @@ import com.bytebot.tileEntities.TileEntityBotLink;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -22,6 +25,11 @@ public class BlockBotLink extends BlockContainer {
 	}
 
 	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		world.markBlockForUpdate(x, y, z);
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityBotLink();
 	}
@@ -33,5 +41,14 @@ public class BlockBotLink extends BlockContainer {
 		if (entity instanceof TileEntityBotLink) {
 			((TileEntityBotLink) entity).blockBreak();
 		}
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ) {
+		TileEntity entity = world.getTileEntity(x, y, z);
+		if (entity instanceof TileEntityBotLink) {
+			((TileEntityBotLink) entity).printNetwork();
+		}
+		return true;
 	}
 }

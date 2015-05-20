@@ -13,7 +13,7 @@ import org.pircbotx.Channel;
  * Created by AEnterprise
  */
 public class ChannelList implements IDataHolder {
-	private List<String> channels = new ArrayList<>();
+	private List<String> channels = new ArrayList<String>();
 
 
 	public void add(String channel) {
